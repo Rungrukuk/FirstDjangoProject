@@ -2,24 +2,24 @@
 {% block title %} Delete Page {% endblock title %}
 
 {% block content %}
-<form method="post" action="#">
-    {% csrf_token %}
-    
-        {% for item in t %}
-        <div class = "input-group mb-3">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-                <input type ="checkbox",  value="clicked", name="c{{item.id}}" >
+  {% if user.is_authenticated %}
+    <form method="post" action="#">
+        {% csrf_token %}
+            {% for item in t %}
+            <div class = "input-group mb-3">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type ="checkbox",  value="clicked", name="c{{item.id}}" >
+                </div>
+              </div>
+              <input type="text", value="{{item.text}}" class="form-control" READONLY>
             </div>
-          </div>
-          <input type="text", value="{{item.text}}" class="form-control" READONLY>
-        </div>
-        {% endfor %}
-    
-
-
-    <button type="submit" name="delete" value="delete" class = "btn btn-success" >Delete</button>
-    <button type="submit" name="deleteAll" value="deleteAll" class = "btn btn-success">Delete All</button>
-</form>
+            {% endfor %}
+        <button type="submit" name="delete" value="delete" class = "btn btn-success" >Delete</button>
+        <button type="submit" name="deleteAll" value="deleteAll" class = "btn btn-success">Delete All</button>
+    </form>
+  {% else %}
+    <p>Login <a href="/login">Here</a></p>
+  {% endif %}
 
 {% endblock content %}

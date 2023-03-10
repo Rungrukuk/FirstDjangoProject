@@ -5,14 +5,19 @@ Create New List
 {% endblock  %}
 
 {% block content %}
-<h3>Create Page</h3>
-<form method="post" action ="/create/" class="form-group">
-    {% csrf_token %}
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <button type="submit", name="save" class="btn btn-success">Create new </button>
-            {{form.name}}
-        </div>
-    </div>
-</form>
+    {% if user.is_authenticated %}
+        <h3>Create Page</h3>
+        <form method="post" action ="/create/" class="form-group">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    {{form.name}}
+                    <button type="submit", name="save" class="btn btn-success">Create new </button>
+                </div>
+            </div>
+        </form>
+    {% else %}
+        <p>Login <a href="/login">Here</a></p>
+    {% endif %}
+
 {% endblock content %}
